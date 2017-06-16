@@ -1,0 +1,14 @@
+GetCryptoNewsIntent update
+GetCryptoNewsIntent a update
+GetCryptoNewsIntent all update
+GetCryptoNewsIntent news
+GetCryptoNewsIntent a news
+GetCryptoNewsIntent all news
+GetCryptoNewsIntent give me a update
+GetCryptoNewsIntent tell me update
+GetCryptoNewsIntent tell me a news
+GetCryptoNewsIntent give me news
+GetCryptoNewsIntent give me some information
+GetCryptoNewsIntent give me some information
+GetCryptoNewsIntent tell me something
+GetCryptoNewsIntent give me something

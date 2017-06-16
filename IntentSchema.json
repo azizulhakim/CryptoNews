@@ -1,0 +1,6 @@
+{ "intents": [
+    { "intent": "GetCryptoNewsIntent" },
+    { "intent": "AMAZON.HelpIntent" },
+    { "intent": "AMAZON.StopIntent" },
+    { "intent": "AMAZON.CancelIntent" }
+]}
