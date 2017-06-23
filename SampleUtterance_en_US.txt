@@ -12,3 +12,9 @@ GetCryptoNewsIntent give me some information
 GetCryptoNewsIntent give me some information
 GetCryptoNewsIntent tell me something
 GetCryptoNewsIntent give me something
+
+GetCryptoNewsForCurrency give me price of {CryptocurrencyType}
+GetCryptoNewsForCurrency tell me price of {CryptocurrencyType}
+GetCryptoNewsForCurrency what is price of {CryptocurrencyType}
+GetCryptoNewsForCurrency price of {CryptocurrencyType}
+GetCryptoNewsForCurrency {CryptocurrencyType} price

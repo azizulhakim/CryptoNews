@@ -81,26 +81,28 @@ var handlers = {
         }, function(error) {
 
         })
+    },
+    'GetCryptoNewsForCurrency' : function () {
+      var self = this;
+      var currencyTypeMap = {
+        'bitcoin': 'BTC',
+        'litecoin': 'LTC',
+        'ethereum': 'ETH',
+        'ether': 'ETH',
+        'ripple': 'XRP'
+      }
+      var cryptoCurrencyType = this.event.request.intent.slots.CryptocurrencyType.value;
+      cryptoHttp('https://min-api.cryptocompare.com/data/price?fsym=' + currencyTypeMap[cryptoCurrencyType] + '&tsyms=BTC,USD,EUR,GBP', function(json) {
+        var responseMessage = 'Current price of ' + cryptoCurrencyType + ' is $' + json.USD;
+        //responseMessage += ', litecoin $' + json.USD;
+        //var speechOutput = responseMessage;
+        self.emit(':tellWithCard', responseMessage, SKILL_NAME, responseMessage);
 
-        // https.get('https://min-api.cryptocompare.com/data/price?fsym=LTC&tsyms=BTC,USD,EUR,GBP', function(response) {
-        //   console.log('response found');
-        //   var str = '';
-        //   response.on('data', function(chunk) {
-        //     str += chunk;
-        //   });
-        //
-        //   response.on('end', function() {
-        //     var json = JSON.parse(str);
-        //     var speechOutput = GET_FACT_MESSAGE + responseMessage;
-        //     self.emit(':tellWithCard', speechOutput, SKILL_NAME, responseMessage);
-        //   })
-        // }).on('error', function(e) {
-        //   console.log('http error: ' + e.message);
-        //   var json = 'http error ' + e.message;
-        //
-        //   var speechOutput = GET_FACT_MESSAGE + json;
-        //   self.emit(':tellWithCard', speechOutput, SKILL_NAME, json)
-        // });
+      }, function(error) {
+        var responseMessage = 'Sorry!! I faced some error in retrieving price for ' + cryptoCurrencyType;
+        self.emit(':tellWithCard', responseMessage, SKILL_NAME, responseMessage);
+      })
+      //this.emit(':tellWithCard', 'You asked about ' + cryptoCurrencyType, SKILL_NAME, 'You asked about ' + cryptoCurrencyType);
     },
     'AMAZON.HelpIntent': function () {
         var speechOutput = HELP_MESSAGE;

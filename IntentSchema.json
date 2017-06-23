@@ -1,6 +1,25 @@
-{ "intents": [
-    { "intent": "GetCryptoNewsIntent" },
-    { "intent": "AMAZON.HelpIntent" },
-    { "intent": "AMAZON.StopIntent" },
-    { "intent": "AMAZON.CancelIntent" }
-]}
+{
+  "intents": [
+    {
+      "intent": "GetCryptoNewsIntent"
+    },
+    {
+      "intent": "GetCryptoNewsForCurrency",
+      "slots": [
+        {
+          "name": "CryptocurrencyType",
+          "type": "LIST_CRYPTOCURRENCY_TYPE"
+        }
+      ]
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    }
+  ]
+}

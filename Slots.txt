@@ -1,0 +1,7 @@
+Type: LIST_CRYPTOCURRENCY_TYPE
+Values:
+      bitcoin
+      litecoin
+      ethereum
+      ether
+      ripple
