@@ -5,3 +5,21 @@ Values:
       ethereum
       ether
       ripple
+
+
+
+Type: LIST_REGULAR_CURRENCY_TYPE
+Values:
+    USD
+    US Dollar
+    Australian Dollar
+    Canadian Dollar
+    Dollar
+    Pound
+    British Pound
+    Euro
+    Taka
+    Rupee
+    Brazilian Real
+    Chinese Yuan
+    Japanese Yen

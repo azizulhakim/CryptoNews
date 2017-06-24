@@ -13,8 +13,31 @@ GetCryptoNewsIntent give me some information
 GetCryptoNewsIntent tell me something
 GetCryptoNewsIntent give me something
 
+
+GetCryptoNewsInCurrency update in {OutputCurrencyType}
+GetCryptoNewsInCurrency a update in {OutputCurrencyType}
+GetCryptoNewsInCurrency all update in {OutputCurrencyType}
+GetCryptoNewsInCurrency news in {OutputCurrencyType}
+GetCryptoNewsInCurrency a news in {OutputCurrencyType}
+GetCryptoNewsInCurrency all news in {OutputCurrencyType}
+GetCryptoNewsInCurrency give me a update in {OutputCurrencyType}
+GetCryptoNewsInCurrency tell me update in {OutputCurrencyType}
+GetCryptoNewsInCurrency tell me a news in {OutputCurrencyType}
+GetCryptoNewsInCurrency give me news in {OutputCurrencyType}
+GetCryptoNewsInCurrency give me some information in {OutputCurrencyType}
+GetCryptoNewsInCurrency give me some information in {OutputCurrencyType}
+GetCryptoNewsInCurrency tell me something in {OutputCurrencyType}
+GetCryptoNewsInCurrency give me something in {OutputCurrencyType}
+
+
 GetCryptoNewsForCurrency give me price of {CryptocurrencyType}
 GetCryptoNewsForCurrency tell me price of {CryptocurrencyType}
 GetCryptoNewsForCurrency what is price of {CryptocurrencyType}
 GetCryptoNewsForCurrency price of {CryptocurrencyType}
 GetCryptoNewsForCurrency {CryptocurrencyType} price
+
+GetCryptoNewsForCurrencyInCurrency give me price of {CryptocurrencyType} in {OutputCurrencyType}
+GetCryptoNewsForCurrencyInCurrency tell me price of {CryptocurrencyType} in {OutputCurrencyType}
+GetCryptoNewsForCurrencyInCurrency what is price of {CryptocurrencyType} in {OutputCurrencyType}
+GetCryptoNewsForCurrencyInCurrency price of {CryptocurrencyType} in {OutputCurrencyType}
+GetCryptoNewsForCurrencyInCurrency {CryptocurrencyType} price in {OutputCurrencyType}

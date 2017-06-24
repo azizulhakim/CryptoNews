@@ -1,4 +1,5 @@
 'use strict';
+
 var Alexa = require('alexa-sdk');
 var https = require('https');
 
@@ -22,6 +23,30 @@ var STOP_MESSAGE = "Goodbye!";
 var data = [
     "Todays bitcoin price is $2430.54"
 ];
+
+var cryptoCurrencyTypeMap = {
+  'bitcoin': 'BTC',
+  'litecoin': 'LTC',
+  'ethereum': 'ETH',
+  'ether': 'ETH',
+  'ripple': 'XRP'
+};
+
+var currencyTypeMap = {
+  'USD': 'USD',
+  'US DOLLAR': 'USD',
+  'AUSTRALIAN DOLLAR': 'AUD',
+  'CANADIAN DOLLAR': 'CAD',
+  'DOLLAR': 'USD',
+  'POUND': 'GBP',
+  'BRITISH POUND': 'GBP',
+  'EURO': 'EUR',
+  'TAKA': 'BDT',
+  'RUPEE': 'INR',
+  'Brazilian Real': 'BRL',
+  'CHINESE YUAN': 'CNY',
+  'JAPANESE YEN': 'JPY'
+};
 
 //=========================================================================================================================================
 //Editing anything below this line might break your skill.
@@ -82,17 +107,44 @@ var handlers = {
 
         })
     },
+    'GetCryptoNewsInCurrency': function () {
+      var currencyType = this.event.request.intent.slots.OutputCurrencyType.value;
+      currencyType = currencyType.toUpperCase();
+      var self = this;
+      var host = 'https://min-api.cryptocompare.com';
+      var responseMessage = '';
+
+      console.log(currencyType);
+
+      cryptoHttp('https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=' + currencyTypeMap[currencyType], function(json) {
+
+        responseMessage = 'Current price of crypto-currencies are: bitcoin ' + json[currencyTypeMap[currencyType]] + ' ' + currencyType;
+
+        cryptoHttp('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=' + currencyTypeMap[currencyType], function(json) {
+          responseMessage += ', ethereum ' + json[currencyTypeMap[currencyType]] + ' ' + currencyType;
+
+          cryptoHttp('https://min-api.cryptocompare.com/data/price?fsym=LTC&tsyms=' + currencyTypeMap[currencyType], function(json) {
+            responseMessage += ', litecoin ' + json[currencyTypeMap[currencyType]] + ' ' + currencyType;
+            var speechOutput = responseMessage;
+            self.emit(':tellWithCard', speechOutput, SKILL_NAME, responseMessage);
+
+          }, function(error) {
+
+          })
+
+        }, function(error) {
+
+        })
+
+      }, function(error) {
+
+      })
+    },
     'GetCryptoNewsForCurrency' : function () {
       var self = this;
-      var currencyTypeMap = {
-        'bitcoin': 'BTC',
-        'litecoin': 'LTC',
-        'ethereum': 'ETH',
-        'ether': 'ETH',
-        'ripple': 'XRP'
-      }
+
       var cryptoCurrencyType = this.event.request.intent.slots.CryptocurrencyType.value;
-      cryptoHttp('https://min-api.cryptocompare.com/data/price?fsym=' + currencyTypeMap[cryptoCurrencyType] + '&tsyms=BTC,USD,EUR,GBP', function(json) {
+      cryptoHttp('https://min-api.cryptocompare.com/data/price?fsym=' + cryptoCurrencyTypeMap[cryptoCurrencyType] + '&tsyms=BTC,USD,EUR,GBP', function(json) {
         var responseMessage = 'Current price of ' + cryptoCurrencyType + ' is $' + json.USD;
         //responseMessage += ', litecoin $' + json.USD;
         //var speechOutput = responseMessage;
@@ -103,6 +155,21 @@ var handlers = {
         self.emit(':tellWithCard', responseMessage, SKILL_NAME, responseMessage);
       })
       //this.emit(':tellWithCard', 'You asked about ' + cryptoCurrencyType, SKILL_NAME, 'You asked about ' + cryptoCurrencyType);
+    },
+    'GetCryptoNewsForCurrencyInCurrency' : function () {
+      var self = this;
+
+      var cryptoCurrencyType = this.event.request.intent.slots.CryptocurrencyType.value;
+      var inCurrencyType = this.event.request.intent.slots.OutputCurrencyType.value;
+      inCurrencyType = inCurrencyType.toUpperCase();
+      cryptoHttp('https://min-api.cryptocompare.com/data/price?fsym=' + cryptoCurrencyTypeMap[cryptoCurrencyType] + '&tsyms=' + currencyTypeMap[inCurrencyType], function(json) {
+        var responseMessage = 'Current price of ' + cryptoCurrencyType + ' is ' + json[currencyTypeMap[inCurrencyType]] + ' ' + inCurrencyType;
+        self.emit(':tellWithCard', responseMessage, SKILL_NAME, responseMessage);
+
+      }, function(error) {
+        var responseMessage = 'Sorry!! I faced some error in retrieving price for ' + cryptoCurrencyType;
+        self.emit(':tellWithCard', responseMessage, SKILL_NAME, responseMessage);
+      })
     },
     'AMAZON.HelpIntent': function () {
         var speechOutput = HELP_MESSAGE;

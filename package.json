@@ -21,6 +21,7 @@
   "author": "Azizul Hakim",
   "license": "GPL-3.0",
   "dependencies": {
-    "alexa-sdk": "^1.0.10"
+    "alexa-sdk": "^1.0.10",
+    "voicelabs": "^1.0.1"
   }
 }

@@ -4,11 +4,33 @@
       "intent": "GetCryptoNewsIntent"
     },
     {
+      "intent": "GetCryptoNewsInCurrency",
+      "slots":[
+        {
+          "name": "OutputCurrencyType",
+          "type": "LIST_REGULAR_CURRENCY_TYPE"
+        }
+      ]
+    },
+    {
       "intent": "GetCryptoNewsForCurrency",
       "slots": [
         {
           "name": "CryptocurrencyType",
           "type": "LIST_CRYPTOCURRENCY_TYPE"
+        }
+      ]
+    },
+    {
+      "intent": "GetCryptoNewsForCurrencyInCurrency",
+      "slots": [
+        {
+          "name": "CryptocurrencyType",
+          "type": "LIST_CRYPTOCURRENCY_TYPE"
+        },
+        {
+          "name": "OutputCurrencyType",
+          "type": "LIST_REGULAR_CURRENCY_TYPE"
         }
       ]
     },
