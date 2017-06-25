@@ -1,5 +1,6 @@
 'use strict';
 
+var VoiceLabs = require("voicelabs")('ADD_VOICELAB_TOKEN_HERE');
 var Alexa = require('alexa-sdk');
 var https = require('https');
 
@@ -93,7 +94,11 @@ var handlers = {
             cryptoHttp('https://min-api.cryptocompare.com/data/price?fsym=LTC&tsyms=BTC,USD,EUR,GBP', function(json) {
               responseMessage += ', litecoin $' + json.USD;
               var speechOutput = responseMessage;
-              self.emit(':tellWithCard', speechOutput, SKILL_NAME, responseMessage);
+              var intent = self.event.request.intent;
+              VoiceLabs.track(self.event.session, intent.name, intent.slots, speechOutput, (error, response) => {
+                self.emit(':tellWithCard', speechOutput, SKILL_NAME, responseMessage);
+              })
+
 
             }, function(error) {
 
@@ -126,7 +131,10 @@ var handlers = {
           cryptoHttp('https://min-api.cryptocompare.com/data/price?fsym=LTC&tsyms=' + currencyTypeMap[currencyType], function(json) {
             responseMessage += ', litecoin ' + json[currencyTypeMap[currencyType]] + ' ' + currencyType;
             var speechOutput = responseMessage;
-            self.emit(':tellWithCard', speechOutput, SKILL_NAME, responseMessage);
+            var intent = self.event.request.intent;
+            VoiceLabs.track(self.event.session, intent.name, intent.slots, speechOutput, (error, response) => {
+              self.emit(':tellWithCard', speechOutput, SKILL_NAME, responseMessage);
+            });
 
           }, function(error) {
 
@@ -148,7 +156,10 @@ var handlers = {
         var responseMessage = 'Current price of ' + cryptoCurrencyType + ' is $' + json.USD;
         //responseMessage += ', litecoin $' + json.USD;
         //var speechOutput = responseMessage;
-        self.emit(':tellWithCard', responseMessage, SKILL_NAME, responseMessage);
+        var intent = self.event.request.intent;
+        VoiceLabs.track(self.event.session, intent.name, intent.slots, responseMessage, (error, response) => {
+          self.emit(':tellWithCard', responseMessage, SKILL_NAME, responseMessage);
+        });
 
       }, function(error) {
         var responseMessage = 'Sorry!! I faced some error in retrieving price for ' + cryptoCurrencyType;
@@ -164,7 +175,10 @@ var handlers = {
       inCurrencyType = inCurrencyType.toUpperCase();
       cryptoHttp('https://min-api.cryptocompare.com/data/price?fsym=' + cryptoCurrencyTypeMap[cryptoCurrencyType] + '&tsyms=' + currencyTypeMap[inCurrencyType], function(json) {
         var responseMessage = 'Current price of ' + cryptoCurrencyType + ' is ' + json[currencyTypeMap[inCurrencyType]] + ' ' + inCurrencyType;
-        self.emit(':tellWithCard', responseMessage, SKILL_NAME, responseMessage);
+        var intent = self.event.request.intent;
+        VoiceLabs.track(self.event.session, intent.name, intent.slots, responseMessage, (error, response) => {
+          self.emit(':tellWithCard', responseMessage, SKILL_NAME, responseMessage);
+        });
 
       }, function(error) {
         var responseMessage = 'Sorry!! I faced some error in retrieving price for ' + cryptoCurrencyType;
