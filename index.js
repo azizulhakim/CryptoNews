@@ -95,9 +95,13 @@ var handlers = {
               responseMessage += ', litecoin $' + json.USD;
               var speechOutput = responseMessage;
               var intent = self.event.request.intent;
-              VoiceLabs.track(self.event.session, intent.name, intent.slots, speechOutput, (error, response) => {
+              if (intent != undefined) {
+                VoiceLabs.track(self.event.session, intent.name, intent.slots, speechOutput, (error, response) => {
+                  self.emit(':tellWithCard', speechOutput, SKILL_NAME, responseMessage);
+                })
+              } else {
                 self.emit(':tellWithCard', speechOutput, SKILL_NAME, responseMessage);
-              })
+              }
 
 
             }, function(error) {
